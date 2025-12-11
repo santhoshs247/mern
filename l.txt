@@ -1,0 +1,20 @@
+<div>
+      <div className={item.amount>=0?"expense":"income"}>
+      <div>
+        {ExpenseData.map((item, index) => (
+          <div key={index} className="history-item">
+            <h2>Name</h2>
+            <h3 className="history-title">{item.item}</h3>
+          </div>
+        ))}
+      </div>
+      <div>
+        {ExpenseData.map((item, index) => (
+          <div key={index} className="history-item">
+            <h3 className={item.amount >=0?"income":"expense"}>Amount</h3>
+            <h3 className="history-amount">{item.amount}</h3>
+          </div>
+        ))}
+      </div>
+      </div>
+    </div>

@@ -1,0 +1,75 @@
+.form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0px;
+}
+input {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 4px;
+}
+button {
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+}
+.container {
+  width: 400px;
+  margin: auto;
+  margin-top: 50px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.history-item {
+  border: 1px solid #ddd;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-top: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.history-item p {
+  margin: 0;
+  font-weight: 600;
+}
+.expense {
+  color: red;
+}
+.income {
+  color: green;
+}
+.balance-container {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  color: #000;
+  background-color: lightblue;
+  padding: 25px 20px;
+}
+.expense-container {
+  background-color: gray;
+  color: #000;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+}
+.income-container {
+  background-color: gray;
+  color: #000;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+}
+.balance {
+   background-color: gray;
+  color: #000;
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+}
