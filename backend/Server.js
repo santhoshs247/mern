@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+
 const app = express();
+app.use(cors());
 app.use(express.json());
 mongoose.connect("mongodb://localhost:27017/server")
 .then(() => {
@@ -9,57 +12,55 @@ mongoose.connect("mongodb://localhost:27017/server")
 .catch(() => {
     console.log("MongoDB connection failed")
 });
-const ItemSchema = new mongoose.Schema({
+const ExpenseSchema = new mongoose.Schema({
     item: {
         type: String,
         required: true
-    }
-});
-const AmountSchema = new mongoose.Schema({
+    },
     amount: {
         type: Number,
         required: true
-    }
-});
-const ExpenseModel = mongoose.model("expense", {
-    item: ItemSchema,
-    amount: AmountSchema,
+    },
     date: {
         type: Date,
         default: Date.now
     }
 });
-app.post("/expense",async(req,res) => {
+const ExpenseModel = mongoose.model("expense", ExpenseSchema);
+app.post("/expense", async (req, res) => {
     try {
-        const {item,amount} = req.body;
+        const { item, amount } = req.body;
+
         const newExpense = new ExpenseModel({
-            item: {item},
-            amount: {amount}
+            item,
+            amount
         });
+
         await newExpense.save();
         res.json("Expense added successfully");
     } catch (err) {
         res.send("Error adding expense");
     }
 });
-app.get("/expense",async(req,res) => {
+app.get("/expense", async (req, res) => {
     try {
         const expenses = await ExpenseModel.find();
-        res.send(expenses);
+        res.json({ data: expenses });
     } catch (err) {
         res.send("Error fetching expenses");
     }
 });
-
-app.delete("/expense/:id",async(req,res) => {
+app.delete("/expense/:id", async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const deletedExpense = await ExpenseModel.findByIdAndDelete(id);
-        res.json({message: "item deleted",data: deletedExpense.item});       
+
+        res.json({ message: "item deleted", data: deletedExpense.item });
     } catch (err) {
         res.send("Error deleting expense");
     }
 });
+
 app.listen(3001, () => {
     console.log("Server running on port 3001");
 });

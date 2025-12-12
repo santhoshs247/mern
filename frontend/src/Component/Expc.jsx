@@ -29,10 +29,11 @@ function Expc() {
       const response = await fetch('http://localhost:3001/expense');
       const data = await response.json();
       console.log(data);
+      setExpense(data.data);
   }
   useEffect(() => {
     fetchExpenses([]);
-  });
+  },[]);
   async function handleSubmit(e) {
     e.preventDefault();
     const addressexpense = await fetch('http://localhost:3001/expense', {
@@ -42,7 +43,15 @@ function Expc() {
       },
       body: JSON.stringify({ item, amount })
     });
+    fetchExpenses();
   }
+   async function deleteexpence(id) {
+    const deleteexpence = await fetch(`http://localhost:3001/expense/${id}`, {
+      method: 'DELETE'
+    });
+    fetchExpenses();
+  }
+  
 
 
   return (
@@ -52,13 +61,13 @@ function Expc() {
       </div>
       <div>
         <h1>Add Expense</h1>
-        <form onSubmit={handlesubmit} className='form-section'>
+        <form onSubmit={handleSubmit} className='form-section'>
           <input type="text" placeholder='Name' value={item} onChange={handleitem}/>
           <input type="number" placeholder='Amount' value={amount} onChange={handleamount}/>
-          <button type="submit" onChange={handlesubmit}>Add amount</button>
+          <button type="submit">Add amount</button>
           <button type="button" onClick={handlereset}>Reset</button>
         </form>
-        <History ExpenseData={Expense} />
+        <History ExpenseData={Expense} deleteexpence={deleteexpence} />
       </div>
     </div>
   )
